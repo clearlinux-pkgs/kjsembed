@@ -6,11 +6,11 @@
 #
 Name     : kjsembed
 Version  : 5.62.0
-Release  : 15
+Release  : 16
 URL      : https://download.kde.org/stable/frameworks/5.62/portingAids/kjsembed-5.62.0.tar.xz
 Source0  : https://download.kde.org/stable/frameworks/5.62/portingAids/kjsembed-5.62.0.tar.xz
 Source1 : https://download.kde.org/stable/frameworks/5.62/portingAids/kjsembed-5.62.0.tar.xz.sig
-Summary  : Embedded JS
+Summary  : No detailed summary available
 Group    : Development/Tools
 License  : LGPL-2.1
 Requires: kjsembed-bin = %{version}-%{release}
@@ -24,7 +24,6 @@ BuildRequires : kjs-dev
 BuildRequires : qtbase-dev mesa-dev
 BuildRequires : qttools
 BuildRequires : qttools-dev
-BuildRequires : qttools-staticdev
 
 %description
 # KJSEmbed
@@ -48,7 +47,6 @@ Group: Development
 Requires: kjsembed-lib = %{version}-%{release}
 Requires: kjsembed-bin = %{version}-%{release}
 Provides: kjsembed-devel = %{version}-%{release}
-Requires: kjsembed = %{version}-%{release}
 Requires: kjsembed = %{version}-%{release}
 
 %description dev
@@ -96,10 +94,9 @@ export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
 export LANG=C.UTF-8
-export SOURCE_DATE_EPOCH=1568904734
+export SOURCE_DATE_EPOCH=1569727733
 mkdir -p clr-build
 pushd clr-build
-# -Werror is for werrorists
 export GCC_IGNORE_WERROR=1
 export AR=gcc-ar
 export RANLIB=gcc-ranlib
@@ -113,7 +110,7 @@ make  %{?_smp_mflags}  VERBOSE=1
 popd
 
 %install
-export SOURCE_DATE_EPOCH=1568904734
+export SOURCE_DATE_EPOCH=1569727733
 rm -rf %{buildroot}
 mkdir -p %{buildroot}/usr/share/package-licenses/kjsembed
 cp COPYING.LIB %{buildroot}/usr/share/package-licenses/kjsembed/COPYING.LIB
