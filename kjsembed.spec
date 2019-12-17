@@ -5,11 +5,11 @@
 # Source0 file verified with key 0x58D0EE648A48B3BB (faure@kde.org)
 #
 Name     : kjsembed
-Version  : 5.64.0
-Release  : 18
-URL      : https://download.kde.org/stable/frameworks/5.64/portingAids/kjsembed-5.64.0.tar.xz
-Source0  : https://download.kde.org/stable/frameworks/5.64/portingAids/kjsembed-5.64.0.tar.xz
-Source1 : https://download.kde.org/stable/frameworks/5.64/portingAids/kjsembed-5.64.0.tar.xz.sig
+Version  : 5.65.0
+Release  : 19
+URL      : https://download.kde.org/stable/frameworks/5.65/portingAids/kjsembed-5.65.0.tar.xz
+Source0  : https://download.kde.org/stable/frameworks/5.65/portingAids/kjsembed-5.65.0.tar.xz
+Source1  : https://download.kde.org/stable/frameworks/5.65/portingAids/kjsembed-5.65.0.tar.xz.sig
 Summary  : Embedded JS
 Group    : Development/Tools
 License  : LGPL-2.1
@@ -47,7 +47,6 @@ Group: Development
 Requires: kjsembed-lib = %{version}-%{release}
 Requires: kjsembed-bin = %{version}-%{release}
 Provides: kjsembed-devel = %{version}-%{release}
-Requires: kjsembed = %{version}-%{release}
 Requires: kjsembed = %{version}-%{release}
 
 %description dev
@@ -88,17 +87,17 @@ man components for the kjsembed package.
 
 
 %prep
-%setup -q -n kjsembed-5.64.0
+%setup -q -n kjsembed-5.65.0
+cd %{_builddir}/kjsembed-5.65.0
 
 %build
 export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
 export LANG=C.UTF-8
-export SOURCE_DATE_EPOCH=1573401805
+export SOURCE_DATE_EPOCH=1576546565
 mkdir -p clr-build
 pushd clr-build
-# -Werror is for werrorists
 export GCC_IGNORE_WERROR=1
 export AR=gcc-ar
 export RANLIB=gcc-ranlib
@@ -112,10 +111,10 @@ make  %{?_smp_mflags}  VERBOSE=1
 popd
 
 %install
-export SOURCE_DATE_EPOCH=1573401805
+export SOURCE_DATE_EPOCH=1576546565
 rm -rf %{buildroot}
 mkdir -p %{buildroot}/usr/share/package-licenses/kjsembed
-cp %{_builddir}/kjsembed-5.64.0/COPYING.LIB %{buildroot}/usr/share/package-licenses/kjsembed/9a1929f4700d2407c70b507b3b2aaf6226a9543c
+cp %{_builddir}/kjsembed-5.65.0/COPYING.LIB %{buildroot}/usr/share/package-licenses/kjsembed/9a1929f4700d2407c70b507b3b2aaf6226a9543c
 pushd clr-build
 %make_install
 popd
@@ -149,7 +148,7 @@ popd
 %files lib
 %defattr(-,root,root,-)
 /usr/lib64/libKF5JsEmbed.so.5
-/usr/lib64/libKF5JsEmbed.so.5.64.0
+/usr/lib64/libKF5JsEmbed.so.5.65.0
 
 %files license
 %defattr(0644,root,root,0755)
