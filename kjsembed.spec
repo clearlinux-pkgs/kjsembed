@@ -5,11 +5,11 @@
 # Source0 file verified with key 0x58D0EE648A48B3BB (faure@kde.org)
 #
 Name     : kjsembed
-Version  : 5.68.0
-Release  : 22
-URL      : https://download.kde.org/stable/frameworks/5.68/portingAids/kjsembed-5.68.0.tar.xz
-Source0  : https://download.kde.org/stable/frameworks/5.68/portingAids/kjsembed-5.68.0.tar.xz
-Source1  : https://download.kde.org/stable/frameworks/5.68/portingAids/kjsembed-5.68.0.tar.xz.sig
+Version  : 5.69.0
+Release  : 23
+URL      : https://download.kde.org/stable/frameworks/5.69/portingAids/kjsembed-5.69.0.tar.xz
+Source0  : https://download.kde.org/stable/frameworks/5.69/portingAids/kjsembed-5.69.0.tar.xz
+Source1  : https://download.kde.org/stable/frameworks/5.69/portingAids/kjsembed-5.69.0.tar.xz.sig
 Summary  : Embedded JS
 Group    : Development/Tools
 License  : LGPL-2.1
@@ -88,15 +88,15 @@ man components for the kjsembed package.
 
 
 %prep
-%setup -q -n kjsembed-5.68.0
-cd %{_builddir}/kjsembed-5.68.0
+%setup -q -n kjsembed-5.69.0
+cd %{_builddir}/kjsembed-5.69.0
 
 %build
 export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
 export LANG=C.UTF-8
-export SOURCE_DATE_EPOCH=1584314367
+export SOURCE_DATE_EPOCH=1586893925
 mkdir -p clr-build
 pushd clr-build
 # -Werror is for werrorists
@@ -113,10 +113,10 @@ make  %{?_smp_mflags}  VERBOSE=1
 popd
 
 %install
-export SOURCE_DATE_EPOCH=1584314367
+export SOURCE_DATE_EPOCH=1586893925
 rm -rf %{buildroot}
 mkdir -p %{buildroot}/usr/share/package-licenses/kjsembed
-cp %{_builddir}/kjsembed-5.68.0/COPYING.LIB %{buildroot}/usr/share/package-licenses/kjsembed/9a1929f4700d2407c70b507b3b2aaf6226a9543c
+cp %{_builddir}/kjsembed-5.69.0/COPYING.LIB %{buildroot}/usr/share/package-licenses/kjsembed/9a1929f4700d2407c70b507b3b2aaf6226a9543c
 pushd clr-build
 %make_install
 popd
@@ -150,7 +150,7 @@ popd
 %files lib
 %defattr(-,root,root,-)
 /usr/lib64/libKF5JsEmbed.so.5
-/usr/lib64/libKF5JsEmbed.so.5.68.0
+/usr/lib64/libKF5JsEmbed.so.5.69.0
 
 %files license
 %defattr(0644,root,root,0755)
