@@ -5,11 +5,11 @@
 # Source0 file verified with key 0x58D0EE648A48B3BB (faure@kde.org)
 #
 Name     : kjsembed
-Version  : 5.70.0
-Release  : 24
-URL      : https://download.kde.org/stable/frameworks/5.70/portingAids/kjsembed-5.70.0.tar.xz
-Source0  : https://download.kde.org/stable/frameworks/5.70/portingAids/kjsembed-5.70.0.tar.xz
-Source1  : https://download.kde.org/stable/frameworks/5.70/portingAids/kjsembed-5.70.0.tar.xz.sig
+Version  : 5.71.0
+Release  : 25
+URL      : https://download.kde.org/stable/frameworks/5.71/portingAids/kjsembed-5.71.0.tar.xz
+Source0  : https://download.kde.org/stable/frameworks/5.71/portingAids/kjsembed-5.71.0.tar.xz
+Source1  : https://download.kde.org/stable/frameworks/5.71/portingAids/kjsembed-5.71.0.tar.xz.sig
 Summary  : Embedded JS
 Group    : Development/Tools
 License  : LGPL-2.1
@@ -90,15 +90,15 @@ man components for the kjsembed package.
 
 
 %prep
-%setup -q -n kjsembed-5.70.0
-cd %{_builddir}/kjsembed-5.70.0
+%setup -q -n kjsembed-5.71.0
+cd %{_builddir}/kjsembed-5.71.0
 
 %build
 export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
 export LANG=C.UTF-8
-export SOURCE_DATE_EPOCH=1589220722
+export SOURCE_DATE_EPOCH=1592248940
 mkdir -p clr-build
 pushd clr-build
 export GCC_IGNORE_WERROR=1
@@ -114,10 +114,10 @@ make  %{?_smp_mflags}  VERBOSE=1
 popd
 
 %install
-export SOURCE_DATE_EPOCH=1589220722
+export SOURCE_DATE_EPOCH=1592248940
 rm -rf %{buildroot}
 mkdir -p %{buildroot}/usr/share/package-licenses/kjsembed
-cp %{_builddir}/kjsembed-5.70.0/COPYING.LIB %{buildroot}/usr/share/package-licenses/kjsembed/9a1929f4700d2407c70b507b3b2aaf6226a9543c
+cp %{_builddir}/kjsembed-5.71.0/COPYING.LIB %{buildroot}/usr/share/package-licenses/kjsembed/9a1929f4700d2407c70b507b3b2aaf6226a9543c
 pushd clr-build
 %make_install
 popd
@@ -151,7 +151,7 @@ popd
 %files lib
 %defattr(-,root,root,-)
 /usr/lib64/libKF5JsEmbed.so.5
-/usr/lib64/libKF5JsEmbed.so.5.70.0
+/usr/lib64/libKF5JsEmbed.so.5.71.0
 
 %files license
 %defattr(0644,root,root,0755)
