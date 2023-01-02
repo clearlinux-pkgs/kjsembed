@@ -6,7 +6,7 @@
 #
 Name     : kjsembed
 Version  : 5.101.0
-Release  : 119
+Release  : 120
 URL      : https://download.kde.org/stable/frameworks/5.101/portingAids/kjsembed-5.101.0.tar.xz
 Source0  : https://download.kde.org/stable/frameworks/5.101/portingAids/kjsembed-5.101.0.tar.xz
 Source1  : https://download.kde.org/stable/frameworks/5.101/portingAids/kjsembed-5.101.0.tar.xz.sig
@@ -27,6 +27,9 @@ BuildRequires : kjs-dev
 BuildRequires : qtbase-dev mesa-dev
 BuildRequires : qttools
 BuildRequires : qttools-dev
+# Suppress stripping binaries
+%define __strip /bin/true
+%define debug_package %{nil}
 
 %description
 # KJSEmbed
@@ -102,26 +105,26 @@ export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
 export LANG=C.UTF-8
-export SOURCE_DATE_EPOCH=1672076939
+export SOURCE_DATE_EPOCH=1672683924
 mkdir -p clr-build
 pushd clr-build
 export GCC_IGNORE_WERROR=1
 export AR=gcc-ar
 export RANLIB=gcc-ranlib
 export NM=gcc-nm
-export CFLAGS="$CFLAGS -O3 -ffat-lto-objects -flto=auto "
-export FCFLAGS="$FFLAGS -O3 -ffat-lto-objects -flto=auto "
-export FFLAGS="$FFLAGS -O3 -ffat-lto-objects -flto=auto "
-export CXXFLAGS="$CXXFLAGS -O3 -ffat-lto-objects -flto=auto "
+export CFLAGS="$CFLAGS -O3 -fdebug-types-section -femit-struct-debug-baseonly -ffat-lto-objects -flto=auto -g1 -gno-column-info -gno-variable-location-views -gz "
+export FCFLAGS="$FFLAGS -O3 -fdebug-types-section -femit-struct-debug-baseonly -ffat-lto-objects -flto=auto -g1 -gno-column-info -gno-variable-location-views -gz "
+export FFLAGS="$FFLAGS -O3 -fdebug-types-section -femit-struct-debug-baseonly -ffat-lto-objects -flto=auto -g1 -gno-column-info -gno-variable-location-views -gz "
+export CXXFLAGS="$CXXFLAGS -O3 -fdebug-types-section -femit-struct-debug-baseonly -ffat-lto-objects -flto=auto -g1 -gno-column-info -gno-variable-location-views -gz "
 %cmake ..
 make  %{?_smp_mflags}
 popd
 
 %install
-export SOURCE_DATE_EPOCH=1672076939
+export SOURCE_DATE_EPOCH=1672683924
 rm -rf %{buildroot}
 mkdir -p %{buildroot}/usr/share/package-licenses/kjsembed
-cp %{_builddir}/kjsembed-%{version}/COPYING.LIB %{buildroot}/usr/share/package-licenses/kjsembed/9a1929f4700d2407c70b507b3b2aaf6226a9543c
+cp %{_builddir}/kjsembed-%{version}/COPYING.LIB %{buildroot}/usr/share/package-licenses/kjsembed/9a1929f4700d2407c70b507b3b2aaf6226a9543c || :
 pushd clr-build
 %make_install
 popd
