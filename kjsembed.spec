@@ -6,11 +6,11 @@
 # Source0 file verified with key 0x58D0EE648A48B3BB (faure@kde.org)
 #
 Name     : kjsembed
-Version  : 5.105.0
-Release  : 162
-URL      : https://download.kde.org/stable/frameworks/5.105/portingAids/kjsembed-5.105.0.tar.xz
-Source0  : https://download.kde.org/stable/frameworks/5.105/portingAids/kjsembed-5.105.0.tar.xz
-Source1  : https://download.kde.org/stable/frameworks/5.105/portingAids/kjsembed-5.105.0.tar.xz.sig
+Version  : 5.106.0
+Release  : 163
+URL      : https://download.kde.org/stable/frameworks/5.106/portingAids/kjsembed-5.106.0.tar.xz
+Source0  : https://download.kde.org/stable/frameworks/5.106/portingAids/kjsembed-5.106.0.tar.xz
+Source1  : https://download.kde.org/stable/frameworks/5.106/portingAids/kjsembed-5.106.0.tar.xz.sig
 Summary  : Embedded JS
 Group    : Development/Tools
 License  : LGPL-2.1
@@ -94,19 +94,19 @@ man components for the kjsembed package.
 
 
 %prep
-%setup -q -n kjsembed-5.105.0
-cd %{_builddir}/kjsembed-5.105.0
+%setup -q -n kjsembed-5.106.0
+cd %{_builddir}/kjsembed-5.106.0
 
 %build
 ## build_prepend content
 # Make sure the package only builds if kdoctools has been updated first
-sed -i -r -e 's,(KF.?DocTools \$\{KF.?_DEP_VERSION\})(.*\))$,\1 REQUIRED \2,' CMakeLists.txt
+sed -i -r -e 's,(KF.?DocTools \$\{KF.?_DEP_VERSION\})(.*\))$,\1 REQUIRED \2,' CMakeLists.txt || :
 ## build_prepend end
 export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
 export LANG=C.UTF-8
-export SOURCE_DATE_EPOCH=1683036248
+export SOURCE_DATE_EPOCH=1684946171
 mkdir -p clr-build
 pushd clr-build
 export GCC_IGNORE_WERROR=1
@@ -120,27 +120,55 @@ export CXXFLAGS="$CXXFLAGS -O3 -fdebug-types-section -femit-struct-debug-baseonl
 %cmake ..
 make  %{?_smp_mflags}
 popd
+mkdir -p clr-build-avx2
+pushd clr-build-avx2
+## build_prepend content
+# Make sure the package only builds if kdoctools has been updated first
+sed -i -r -e 's,(KF.?DocTools \$\{KF.?_DEP_VERSION\})(.*\))$,\1 REQUIRED \2,' CMakeLists.txt || :
+## build_prepend end
+export GCC_IGNORE_WERROR=1
+export AR=gcc-ar
+export RANLIB=gcc-ranlib
+export NM=gcc-nm
+export CFLAGS="$CFLAGS -O3 -Wl,-z,x86-64-v3 -fdebug-types-section -femit-struct-debug-baseonly -ffat-lto-objects -flto=auto -g1 -gno-column-info -gno-variable-location-views -gz=zstd -march=x86-64-v3 "
+export FCFLAGS="$FFLAGS -O3 -Wl,-z,x86-64-v3 -fdebug-types-section -femit-struct-debug-baseonly -ffat-lto-objects -flto=auto -g1 -gno-column-info -gno-variable-location-views -gz=zstd -march=x86-64-v3 "
+export FFLAGS="$FFLAGS -O3 -Wl,-z,x86-64-v3 -fdebug-types-section -femit-struct-debug-baseonly -ffat-lto-objects -flto=auto -g1 -gno-column-info -gno-variable-location-views -gz=zstd -march=x86-64-v3 "
+export CXXFLAGS="$CXXFLAGS -O3 -Wl,-z,x86-64-v3 -fdebug-types-section -femit-struct-debug-baseonly -ffat-lto-objects -flto=auto -g1 -gno-column-info -gno-variable-location-views -gz=zstd -march=x86-64-v3 "
+export CFLAGS="$CFLAGS -march=x86-64-v3 -m64 -Wl,-z,x86-64-v3"
+export CXXFLAGS="$CXXFLAGS -march=x86-64-v3 -m64 -Wl,-z,x86-64-v3"
+export FFLAGS="$FFLAGS -march=x86-64-v3 -m64 -Wl,-z,x86-64-v3"
+export FCFLAGS="$FCFLAGS -march=x86-64-v3 -m64 -Wl,-z,x86-64-v3"
+%cmake ..
+make  %{?_smp_mflags}
+popd
 
 %install
-export SOURCE_DATE_EPOCH=1683036248
+export SOURCE_DATE_EPOCH=1684946171
 rm -rf %{buildroot}
 mkdir -p %{buildroot}/usr/share/package-licenses/kjsembed
 cp %{_builddir}/kjsembed-%{version}/COPYING.LIB %{buildroot}/usr/share/package-licenses/kjsembed/9a1929f4700d2407c70b507b3b2aaf6226a9543c || :
+pushd clr-build-avx2
+%make_install_v3  || :
+popd
 pushd clr-build
 %make_install
 popd
 %find_lang kjsembed5
+/usr/bin/elf-move.py avx2 %{buildroot}-v3 %{buildroot} %{buildroot}/usr/share/clear/filemap/filemap-%{name}
 
 %files
 %defattr(-,root,root,-)
 
 %files bin
 %defattr(-,root,root,-)
+/V3/usr/bin/kjscmd5
+/V3/usr/bin/kjsconsole
 /usr/bin/kjscmd5
 /usr/bin/kjsconsole
 
 %files dev
 %defattr(-,root,root,-)
+/V3/usr/lib64/libKF5JsEmbed.so
 /usr/include/KF5/KJsEmbed/KJsEmbed/KJsEmbed
 /usr/include/KF5/KJsEmbed/kjsembed/binding_support.h
 /usr/include/KF5/KJsEmbed/kjsembed/kjseglobal.h
@@ -158,8 +186,10 @@ popd
 
 %files lib
 %defattr(-,root,root,-)
+/V3/usr/lib64/libKF5JsEmbed.so.5
+/V3/usr/lib64/libKF5JsEmbed.so.5.106.0
 /usr/lib64/libKF5JsEmbed.so.5
-/usr/lib64/libKF5JsEmbed.so.5.105.0
+/usr/lib64/libKF5JsEmbed.so.5.106.0
 
 %files license
 %defattr(0644,root,root,0755)
