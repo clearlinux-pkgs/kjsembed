@@ -9,7 +9,7 @@
 #
 Name     : kjsembed
 Version  : 5.111.0
-Release  : 192
+Release  : 193
 URL      : https://download.kde.org/stable/frameworks/5.111/portingAids/kjsembed-5.111.0.tar.xz
 Source0  : https://download.kde.org/stable/frameworks/5.111/portingAids/kjsembed-5.111.0.tar.xz
 Source1  : https://download.kde.org/stable/frameworks/5.111/portingAids/kjsembed-5.111.0.tar.xz.sig
@@ -108,7 +108,7 @@ export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
 export LANG=C.UTF-8
-export SOURCE_DATE_EPOCH=1698107727
+export SOURCE_DATE_EPOCH=1698160027
 mkdir -p clr-build
 pushd clr-build
 export GCC_IGNORE_WERROR=1
@@ -171,7 +171,7 @@ FFLAGS="$CLEAR_INTERMEDIATE_FFLAGS"
 FCFLAGS="$CLEAR_INTERMEDIATE_FCFLAGS"
 ASFLAGS="$CLEAR_INTERMEDIATE_ASFLAGS"
 LDFLAGS="$CLEAR_INTERMEDIATE_LDFLAGS"
-export SOURCE_DATE_EPOCH=1698107727
+export SOURCE_DATE_EPOCH=1698160027
 rm -rf %{buildroot}
 mkdir -p %{buildroot}/usr/share/package-licenses/kjsembed
 cp %{_builddir}/kjsembed-%{version}/COPYING.LIB %{buildroot}/usr/share/package-licenses/kjsembed/9a1929f4700d2407c70b507b3b2aaf6226a9543c || :
